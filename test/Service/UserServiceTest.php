@@ -106,7 +106,7 @@ class UserServiceTest extends TestCase
         $user->name = "Eko";
         $user->password = password_hash("eko", PASSWORD_BCRYPT);
 
-        // $this->expectException(ValidationException::class);
+        $this->expectException(ValidationException::class);
 
         $request = new UserLoginRequest();
         $request->id = "eko";
