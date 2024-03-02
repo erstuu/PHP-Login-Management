@@ -89,14 +89,16 @@ class UserServiceTest extends TestCase
         $user->id = "eko";
         $user->name = "Eko";
         $user->password = password_hash("eko", PASSWORD_BCRYPT);
+        // $this->userRepository->save($user);
 
-        $this->expectException(ValidationException::class);
+        self::expectException(ValidationException::class);
 
         $request = new UserLoginRequest();
         $request->id = "eko";
         $request->password = "salah";
 
         $this->userService->login($request);
+        // self::assertFalse(password_verify($user->password, $response->user->password));
     }
 
     public function testLoginSuccess()
@@ -106,7 +108,7 @@ class UserServiceTest extends TestCase
         $user->name = "Eko";
         $user->password = password_hash("eko", PASSWORD_BCRYPT);
 
-        $this->expectException(ValidationException::class);
+        $this->userRepository->save($user);
 
         $request = new UserLoginRequest();
         $request->id = "eko";
