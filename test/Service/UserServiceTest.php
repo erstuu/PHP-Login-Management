@@ -89,7 +89,6 @@ class UserServiceTest extends TestCase
         $user->id = "eko";
         $user->name = "Eko";
         $user->password = password_hash("eko", PASSWORD_BCRYPT);
-        // $this->userRepository->save($user);
 
         self::expectException(ValidationException::class);
 
@@ -98,7 +97,6 @@ class UserServiceTest extends TestCase
         $request->password = "salah";
 
         $this->userService->login($request);
-        // self::assertFalse(password_verify($user->password, $response->user->password));
     }
 
     public function testLoginSuccess()
