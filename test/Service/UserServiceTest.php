@@ -30,7 +30,7 @@ class UserServiceTest extends TestCase
         $request = new UserRegisterRequest();
         $request->id = "eko";
         $request->name = "Eko";
-        $request->password = "rahasia";
+        $request->password = password_hash("rahasia", PASSWORD_BCRYPT);
 
         $response = $this->userService->register($request);
 
