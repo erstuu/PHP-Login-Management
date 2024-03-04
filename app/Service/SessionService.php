@@ -35,7 +35,7 @@ class SessionService
     public function destroy() 
     {
         $sessionId = $_COOKIE[SessionService::$COOKIE_NAME] ?? '';
-        $this->sessionRepository->save($sessionId);
+        $this->sessionRepository->deleteById($sessionId);
 
         setcookie(SessionService::$COOKIE_NAME, '', 1, "/");
     }
