@@ -2,4 +2,4 @@
 ?>
 
 </body>
-</html>mysql 
+</html> 

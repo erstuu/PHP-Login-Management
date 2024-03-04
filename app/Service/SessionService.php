@@ -39,9 +39,10 @@ class SessionService
 
         setcookie(SessionService::$COOKIE_NAME, '', 1, "/");
     }
-    public function current() : User 
+    public function current() : ?User 
     {
         $sessionId = $_COOKIE[SessionService::$COOKIE_NAME] ?? '';
+
         $session = $this->sessionRepository->findById($sessionId);
         if($session == null) {
             return null;
