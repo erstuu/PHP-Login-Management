@@ -18,9 +18,11 @@ namespace ProgrammerZamanNow\Belajar\PHP\MVC\Controller{
 
     use PHPUnit\Framework\TestCase;
     use ProgrammerZamanNow\Belajar\PHP\MVC\Config\Database;
+    use ProgrammerZamanNow\Belajar\PHP\MVC\Domain\Session;
     use ProgrammerZamanNow\Belajar\PHP\MVC\Domain\User;
     use ProgrammerZamanNow\Belajar\PHP\MVC\Repository\SessionRepository;
     use ProgrammerZamanNow\Belajar\PHP\MVC\Repository\UserRepository;
+    use ProgrammerZamanNow\Belajar\PHP\MVC\Service\SessionService;
 
     class UserControllerTest extends TestCase 
     {
@@ -171,6 +173,28 @@ namespace ProgrammerZamanNow\Belajar\PHP\MVC\Controller{
             TestCase::expectOutputRegex("[Id]");
             TestCase::expectOutputRegex("[Password]");
             TestCase::expectOutputRegex("[Id or password is wrong!]");
+        }
+
+        public function logout() {
+            $user = new User();
+            $user->id = "restu";
+            $user->name = "restu";
+            $user->password = password_hash("restu", PASSWORD_BCRYPT);
+
+            $this->userRepository->save($user);
+
+            $session = new Session();
+            $session->id = uniqid();
+            $session->userId = "restu";
+
+            $this->sesionRepository->save($session);
+
+            $_COOKIE[SessionService::$COOKIE_NAME] = $session->id;
+
+            $this->userController->logout();
+
+            TestCase::expectOutputRegex("[Location: /]");
+            TestCase::expectOutputRegex("[X-PZN-SESSION: ]");
         }
 
     }
